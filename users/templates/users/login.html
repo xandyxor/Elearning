@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <title>USERS</title>
+    <meta charset="utf-8">
+    {% load static %}
+</head>
+<body>
+    <form method="post" action="{% url 'users:login' %}">
+        {% csrf_token %}
+        <p>使用者名稱：<input type="text" name="student_ID"></p>
+        <p>密碼：<input type="password" name="password"></p>
+        <div class="error btns login-form-tips" id="jsLoginTips">
+        {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+        </div>
+
+        <p><input class="btn" type="submit" value="送出"></p>
+    </form>
+    
+</body>
+</html>

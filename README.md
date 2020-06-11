@@ -1,0 +1,100 @@
+# E-learning
+
+線上學習系統,課程管理系統,learning management system,Elearning system with python django
+
+## 開發環境
+
+    django>=2
+    django-crispy-forms>=1.6.0
+    django-import-export>=0.5.1
+    django-reversion>=2.0.0
+    django-formtools==2.1
+    future==0.15.2
+    httplib2==0.9.2
+    six==1.10.0
+    patterns==0.3
+    Pillow==5.4.1
+## run
+    virtualenv venv
+    
+    windows user:
+    .\venv\Scripts\activate
+    
+    linux/mac:
+    source venv/bin/activate
+    
+    pip install -r requirements.txt
+
+    python manage.py makemigrations
+    python manage.py migrate
+    python manage.py createsuperuser
+    python manage.py runserver 8080
+
+## 系統功能與資料 
+- 首頁導航連結：「Home」、「course」、「About」、「Services」、「Author」、「login」、「register」
+- 關於：有關網站的說明
+- 教師新增、修改、及刪除課程
+- 訪客可觀看課程，並可註冊成為學生
+- 學生可以登入、登出、並加入課程
+- 註冊課程後可以開始瀏覽教材、範例句子、測驗
+- 教師後臺可看見學生練習狀態與使用時間
+- 自動生成範例句子
+
+
+## 資料庫設計
+
+## user 使用者 資料模型 (Model)
+
+### 用戶訊息
+1. 姓名
+2. 科系 department
+3. 年級 grade
+4. 學號 student_ID
+5. 生日 birthday
+6. 性別 gender
+7. 手機 mobile
+8. 信箱 email
+9. 頭貼 image
+<!-- 10. 課程  courses  (多對多關聯 course model) -->
+ 
+    
+
+
+## course　課程 資料模型 (Model)
+
+### course
+1. 課程名稱 name
+2. 課程簡介 desc
+3. 課程預覽圖 image
+4. 添加時間 add_time
+5. 學生 (多對多關聯 User model)
+
+
+ 
+### lesson
+
+1. 課程名稱 course (course model 的外來鍵)
+2. 章節名稱 name
+3. 添加時間 add_time
+4. 章節內容 desc
+
+### quiz
+
+1. 章節名稱 lesson (lesson model 的外來鍵)
+2. 學生 user (多對多關聯 User model)
+3. 添加時間 add_time
+4. 問題 question
+5. 學生回答 stu_answer
+
+
+## 路由
+
+login
+register
+course
+xadmin
+
+
+
+
+

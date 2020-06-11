@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% if user.is_active == False %}
+  <meta http-equiv="refresh" content="0;url=../index" />
+  {% endif %}
+
+  {% load static %}
+
+  
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>NUTC_Elearning</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet"> 
+
+  <style>
+    /* Center the loader */
+    #loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 1;
+      width: 150px;
+      height: 150px;
+      margin: -75px 0 0 -75px;
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+    
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Add animation to "page content" */
+
+    #myDiv {
+      display: none;
+      text-align: center;
+    }
+  </style>
+  <style type=text/css> 
+    /*全部設定字體*/
+    body { font-family: 'Noto Sans TC', sans-serif;}
+  </style>
+  
+</head>  
+
+
+<body onload="startFunction()" style="margin:0;"  id="page-top">
+
+  <div id="loader"></div>
+  
+  <div style="display:none;" id="startDIV" class="animate-bottom">
+    <div id="headDIV">
+      <!-- Custom fonts for this template-->
+      <link href="/static/sbadmin2/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+      <!-- Custom styles for this template-->
+      <link href="/static/sbadmin2/css/sb-admin-2.min.css" rel="stylesheet">
+      
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script> -->
+    </div>
+
+
+    <div id="bodydiv">
+      <!-- <body id="page-top"> -->
+      <!-- Page Wrapper -->
+        {% for message in messages %}
+          <p class="{{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+        <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+
+          <!-- Sidebar - Brand -->
+          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/dashboard">
+            <div class="sidebar-brand-icon rotate-n-15">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">NUTC<br>Elearning<sup></div>
+          </a>
+    
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
+    
+          <!-- Nav Item - Dashboard -->
+          <li class="nav-item active">
+            <a class="nav-link" href="/dashboard">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Dashboard</span></a>
+          </li>
+    
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+    
+          <!-- Heading -->
+          <div class="sidebar-heading">
+              COURSE modal
+          </div>
+    
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#COURSEcollapse" aria-expanded="true" aria-controls="collapseTwo">
+              <i class="fas fa-book"></i>
+              <span>COURSE</span>
+            </a>
+            <div id="COURSEcollapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">COURSE:</h6>
+                <a class="collapse-item" href="/dashboard">English</a>
+                <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
+              </div>
+            </div>
+          </li>
+    
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+    
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            USER modal
+          </div>
+    
+          <!-- Nav Item - Charts -->
+          <li class="nav-item">
+            <a class="nav-link" href="">
+                <i class="fas fa-user-cog"></i>
+              <span>Profile</span></a>
+          </li>
+
+          <!-- Nav Item - Pages Collapse Menu -->
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+              <i class="fas fa-fw  fa-child"></i>
+              <span>USER</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+              <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Login Screens:</h6>
+                <a class="collapse-item" href="index.html"><i class="far fa-hand-spock">&nbsp;</i>Login</a>
+                <a class="collapse-item" href="index.html"><i class="fas fa-running">&nbsp;</i>Logout</a>
+
+                <a class="collapse-item" href="/"><i class="fas fa-user-plus">&nbsp;</i>Register</a>
+                <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a> -->
+                <!-- <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Other Pages:</h6>
+                <a class="collapse-item" href="404.html">404 Page</a>
+                <a class="collapse-item" href="blank.html">Blank Page</a> -->
+              </div>
+            </div>
+          </li>
+  
+          <!-- Divider -->
+          <hr class="sidebar-divider d-none d-md-block">
+    
+          <!-- Sidebar Toggler (Sidebar) -->
+          <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+          </div>
+    
+        </ul>
+        <!-- End of Sidebar -->
+    
+        <!-- Content Wrapper -->
+
+        <div id="content-wrapper" class="d-flex flex-column">
+    
+          <!-- Main Content -->
+          <div id="content">
+    
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    
+              <!-- Sidebar Toggle (Topbar) -->
+              <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+              </button>
+    
+              <!-- Topbar Search -->
+              <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <i class="fas fa-search fa-sm"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+    
+              <!-- Topbar Navbar -->
+              {% if user.is_authenticated %}
+              <ul class="navbar-nav ml-auto">
+                <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                <li class="nav-item dropdown no-arrow d-sm-none">
+                  <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-search fa-fw"></i>
+                  </a>
+                  <!-- Dropdown - Messages -->
+                  <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                    <form class="form-inline mr-auto w-100 navbar-search">
+                      <div class="input-group">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary" type="button">
+                            <i class="fas fa-search fa-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </li>
+    
+                <!-- Nav Item - Alerts -->
+                <li class="nav-item dropdown no-arrow mx-1">
+                  <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i>
+                    <!-- Counter - Alerts -->
+                    <span class="badge badge-danger badge-counter">3+</span>
+                  </a>
+                  <!-- Dropdown - Alerts -->
+                  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">
+                      Alerts Center
+                    </h6>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                      <div class="mr-3">
+                        <div class="icon-circle bg-primary">
+                            <i class="far fa-hand-spock"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="small text-gray-500">December 12, 2019</div>
+                        <span class="font-weight-bold">歡迎使用NUTC線上學習系統</span>
+                      </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                      <div class="mr-3">
+                        <div class="icon-circle bg-success">
+                            <i class="far fa-grin-tongue-wink"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="small text-gray-500">December 7, 2019</div>
+                          給你一點通知
+                      </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                      <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="fab fa-accessible-icon"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="small text-gray-500">December 2, 2019</div>
+                        系統開發建置中 若有問題請來電0800-091-000 
+                      </div>
+                    </a>
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                  </div>
+                </li>
+    
+                <!-- Nav Item - Messages -->
+                <li class="nav-item dropdown no-arrow mx-1">
+                  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-envelope fa-fw"></i>
+                    <!-- Counter - Messages -->
+                    <span class="badge badge-danger badge-counter">7</span>
+                  </a>
+                  <!-- Dropdown - Messages -->
+                  <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                    <h6 class="dropdown-header">
+                      Message Center
+                    </h6>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                      <div class="dropdown-list-image mr-3">
+                        <img class="rounded-circle" src="/static/sbadmin2/img/hs.jpg" alt="">
+                        <div class="status-indicator bg-success"></div>
+                      </div>
+                      <div class="font-weight-bold">
+                        <div class="text-truncate">Hi.</div>
+                        <div class="small text-gray-500">ADMIN · 58m</div>
+                      </div>
+                    </a>
+                    
+                    <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                  </div>
+                </li>
+    
+                <div class="topbar-divider d-none d-sm-block"></div>
+    
+                <!-- Nav Item - User Information -->
+                
+                <li class="nav-item dropdown no-arrow">
+                  <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
+                    <img class="img-profile rounded-circle" src="/static/sbadmin2/img/hs.jpg">
+                  </a>
+                  <!-- Dropdown - User Information -->
+                  <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Profile
+                    </a>
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Settings
+                    </a>
+                    <!-- <a class="dropdown-item" href="#">
+                      <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Activity Log
+                    </a> -->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                      <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                      Logout
+                    </a>
+                  </div>
+                </li>
+                
+    
+              </ul>
+              {% else %}
+    
+              {% endif %}
+            </nav>
+            <!-- End of Topbar -->
+    
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+    
+              <!-- Page Heading -->
+              <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">{{ course.name }}</h1>
+                <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+              </div>
+              <!-- Page Heading -->
+
+
+              <!-- Content Row -->
+              <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                  <div class="card border-left-primary shadow h-100 py-2">
+                      <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">單字卡</div>
+                          <div class="h5 mb-0 font-weight-bold text-gray-800">underground</div>
+                          </div>
+                          <div class="col-auto">
+                          <i class="fas fa-language  fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6 mb-4">
+                  <div class="card border-left-info shadow h-100 py-2">
+                      <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                          <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-info text-uppercase mb-1">homework</div>
+                          <div class="row no-gutters align-items-center">
+                              <div class="col-auto">
+                              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                              </div>
+                              <div class="col">
+                              <div class="progress progress-sm mr-2">
+                                  <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+                              </div>
+                          </div>
+                          </div>
+                          <div class="col-auto">
+                          <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="row">
+                <div class="col-xl-12 col-lg-12 col-sm-12" >
+                  <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">{{ course.name }}</h6>
+                  </div> 
+                    <div class="card-body" style="padding:0.75rem;position: relative;">
+                        <div class="col-xl-4 col-lg-4 col-sm-4"  style="float:left">
+                          <img class="img-fluid" style="border-radius:5px;" src="/static/sbadmin2/img/undraw_teaching_f1cm.svg" alt="">
+                        </div>
+                      <h3 class="card-title"><a href=""> {{ course.name }} </a></h3>
+                      <p class="card-description">
+                        <div class="courseContent">{{ course.desc|linebreaks }}</div>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-sm-12" >
+                  <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 font-weight-bold text-primary">Sentences Generator</h6>
+                    </div>
+                    <div class="row no-gutters">
+                      <div class="col-xl-4 col-lg-4 col-sm-4">
+                          <img src="{% static 'sbadmin2/img/undraw_teaching_f1cm.svg' %}" style=" border:5px white dashed; border-radius:10px;" class="img-fluid" alt="">
+                      </div>
+                      <div class="col">
+                        <div class="card-body">
+                          <div class="card-block px-2">
+                              <div class="h4 mb-0 font-weight-bold text-gray-800">Sentences Generator</div>
+                              <br>
+                              <div class="h4 mb-0">S + V + O + C</div>
+                              <br>
+
+                              <p class="card-text">{{ course.desc|linebreaks }}</p>
+                              <br>
+
+                              <form name="mc">
+                                <p id ="p_generator"></p>
+                              <br>
+                              <br>
+                              <br>
+                                <p>
+                                    <input class="btn btn-primary" type="button" value="Generator" style="position:absolute;bottom:5px;right:5px;" onclick="d(1)">
+                                </p>
+                                </form>
+
+                                
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- {% for lesson in lessons %} 
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">{{ lesson.name }}</h6>
+                </div>
+                <div class="card-body">
+                  {{ lesson.desc|linebreaks|truncatechars_html:30 }}
+                  <a href="/dashboard/courseRead_new/{{ course.id }}" class="btn btn-primary"   style="position:absolute;bottom:5px;right:5px;">
+                    <span class="spinner-grow spinner-grow-sm"></span>
+                    Enter..
+                  </a>
+                </div>
+              </div>
+              {% endfor %} -->
+
+              
+
+              
+            </div>
+          </div>
+          <!-- End of Main Content -->
+    
+          <!-- Footer -->
+          <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>Copyright &copy; admin@gms.nutc.edu.tw 2019</span>
+              </div>
+            </div>
+          </footer>
+          <!-- End of Footer -->
+    
+        </div>
+        <!-- End of Content Wrapper -->
+    
+      </div>
+      <!-- End of Page Wrapper -->
+    
+      <!-- Scroll to Top Button-->
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
+    
+      <!-- Logout Modal-->
+      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+              <a class="btn btn-primary" href="/users/logout">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!-- goindex Modal 如果沒有登入 返回index時的確認視窗-->
+      {% if user.is_authenticated %}
+    
+      {% else %}
+      <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#goindexModal2').modal('show');
+        });
+      </script>
+      <div class="modal fade" id="goindexModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">請先登入</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">即將返回主頁面</div>
+            <div class="modal-footer">
+                <span id="totalSecond">5</span>
+      
+                <script language="javascript" type="text/javascript"> 
+                  var second = document.getElementById('totalSecond').textContent; 
+                  
+                  if (navigator.appName.indexOf("Explorer") > -1)  { 
+                      second = document.getElementById('totalSecond').innerText; 
+                  } else { 
+                      second = document.getElementById('totalSecond').textContent; 
+                  } 
+                  
+                  setInterval("redirect()", 1000); 
+                  function redirect() { 
+                  if (second < 0) { 
+                      location.href = '/'; 
+                  } else { 
+                      if (navigator.appName.indexOf("Explorer") > -1) { 
+                          document.getElementById('totalSecond').innerText = second--; 
+                      } else { 
+                          document.getElementById('totalSecond').textContent = second--; 
+                      } 
+                    } 
+                  } 
+                </script> 
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <script>
+    var myVar;
+    
+    function startFunction() {
+      myVar = setTimeout(showPage, 100);
+    }
+    
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("startDIV").style.display = "block";
+    }
+  </script>
+
+
+
+  
+  <!-- Bootstrap core JavaScript-->
+  <script src="/static/sbadmin2/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/static/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/static/sbadmin2/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="/static/sbadmin2/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="/static/sbadmin2/js/demo/chart-area-demo.js"></script>
+  <script src="/static/sbadmin2/js/demo/chart-pie-demo.js"></script>
+  <script>
+  
+        /*
+
+        尋找各種例句
+        分析例句結構
+        模仿結構產生句子
+
+        */
+
+        var v = new Array(  //定義句子結構
+            "0 2 |.", 
+            "0 ` to 1.",
+            "I will ; 0 to 1.",
+            "0 is a _.",
+            "0 is @.",
+            "He / 2.",
+            "She / 2.",
+            "0 2.",
+            "I 1.", 
+            "They 1.",
+            "Those * 1.", 
+            "That _ 2.", 
+            "0 4.", "I 4.", 
+            "They 4.", 
+            "Those * 4.", 
+            "That _ 4."
+        )
+      
+        
+        function r(n) { //隨機找陣列中的元素
+            return Math.round(Math.random() * (n - 1))
+        }
+
+        function f(s) { //讓句首大小
+            return s.substring(0, 1).toUpperCase() + s.substring(1, s.length)
+        }
+
+        function d(n) { //總合所有句子後return
+            var t = "";
+            for (i = 0; i < n; i++) {
+                t = t + u() + "\n\n"
+            }
+            // document.mc.q.value = t
+            document.getElementById("p_generator").innerHTML = t;
+        }
+
+        function u() {
+            var t = v[r(v.length)];
+            var i; var s = "";
+            for (i = 0; i < t.length; i++) {
+                var c = t.substring(i, i + 1);
+                var w = "";
+                if (c == '0'){ //替換name
+                    // if (document.mc.n.value) {
+                    //     w = document.mc.n.value;
+                    //     if (r(3) == 1) {
+                    //         w = Joe[r(Joe.length)]
+                    //     }
+                    // }
+                    // else {
+                    //     w = Joe[r(Joe.length)]
+                    // }
+                    w = Joe[r(Joe.length)]
+                }
+                else if (c == '1') w = swim[r(swim.length)] //動作
+                else if (c == '2') w = swims[r(swims.length)] 
+                else if (c == '3') w = swimming[r(swimming.length)]
+                else if (c == '4') w = swam[r(swam.length)]
+                else if (c == '5') w = swum[r(swum.length)]
+                else if (c == '6') w = camera[r(camera.length)]
+                else if (c == '7') w = cameras[r(cameras.length)]
+                else if (c == '8') w = pretty[r(pretty.length)]
+                else if (c == '@') w = busy[r(busy.length)]
+                else if (c == '9') w = well[r(well.length)]
+                else if (c == '_') w = banker[r(banker.length)]
+                else if (c == '*') w = bankers[r(bankers.length)]
+                else if (c == '+') w = here[r(here.length)]
+                else if (c == '[') w = yesterday[r(yesterday.length)]
+                else if (c == ']') w = tomorrow[r(tomorrow.length)]
+                else if (c == '$') w = now[r(now.length)]
+                else if (c == '/') w = always[r(always.length)]
+                else if (c == '|') w = everyday[r(everyday.length)] //時間
+                else if (c == '#') w = must[r(must.length)]
+                else if (c == '%') w = for2hours[r(for2hours.length)]
+                else if (c == '<') w = fun[r(fun.length)]
+                else if (c == '=') w = able[r(able.length)]
+                else if (c == '^') w = agree[r(agree.length)]
+                else if (c == '`') w = agrees[r(agrees.length)]
+                else if (c == '~') w = agreeing[r(agreeing.length)]
+                else if (c == '&') w = agreed[r(agreed.length)]
+                else if (c == ';') w = ask[r(ask.length)]
+                else if (c == ':') w = asks[r(asks.length)]
+                else if (c == '>') w = asking[r(asking.length)]
+                else if (c == '-') w = asked[r(asked.length)]
+                else if (c == '(') w = enjoy[r(enjoy.length)]
+                else if (c == ')') w = enjoys[r(enjoys.length)]
+                else if (c == '{') w = enjoying[r(enjoying.length)]
+                else if (c == '}') w = enjoyed[r(enjoyed.length)]
+                else w = c; s += w
+            }
+            return f(s)
+        }
+
+
+
+
+        //人名
+        var Joe = new Array("Joe", "Abraham", "Albert", "Alfred's niece", "Amanda", "Andrew's uncle", "Andy", "Ann Lynn", "Anthony", "Ashley", "Becky", "Betsy's nephew", "Betty Sue", "Betty", "Bill's wife", "Bob", "Bruce", "Buddy", "Catherine", "Cathy", "Charlie", "Christine", "Connie's husband", "Dave", "David", "Debbie", "Deborah's son", "Dick", "Donna's daughter", "Doug", "Ed", "Edward", "Eleanor", "Elizabeth", "Erika", "Frank", "Fred's wife", "George", "Ginger", "Glenn", "Jack", "Jackie", "Jane", "Jennifer", "Jenny", "Jessica", "Jimmy Joe", "Joe", "Joe's girlfriend", "Joanne's mother", "John", "Joseph", "Judith", "Julie", "Kate's granddaughter", "Larry", "Lawrence", "Lester's ex-wife", "Lonnie", "Luke", "Margaret", "Marge", "Mark", "Martha", "Marty", "Mary", "Matthew", "Meg", "Michael", "Mike", "Miss Johnson", "Mr. Hanson", "Mrs. O'Day", "Ms. Brown", "Ned", "Patricia", "Patty", "Paul's grandson", "Pete", "Peter", "Rebecca", "Richard", "Rita's aunt", "Robert", "Roger's father", "Rosie", "Roy", "Sandra", "Sandy", "Sarah", "Stephen", "Steve", "Sue", "Suzanne", "Thomas", "Tom", "Tony", "Virginia", "Willie");
+
+        //原型動詞 動作
+        var swim = new Array("cook", "dance", "drive", "eat", "fight", "jog", "jump", "laugh", "play", "pray", "read", "run", "shave", "shout", "sing", "ski", "sleep", "study", "surf", "swim", "talk", "walk", "work", "write");
+
+        //動詞＋s 動作
+        var swims = new Array("cooks", "dances", "drives", "eats", "fights", "jogs", "jumps", "laughs", "plays", "prays", "reads", "runs", "shaves", "shouts", "sings", "skis", "sleeps", "studies", "surfs", "swims", "talks", "walks", "works", "writes");
+
+        //動詞+ing 動作 
+        var swimming = new Array("cooking", "dancing", "driving", "eating", "fighting", "jogging", "jumping", "laughing", "playing", "praying", "reading", "running", "shaving", "shouting", "singing", "skiing", "sleeping", "studying", "surfing", "swimming", "talking", "walking", "working", "writing");
+
+        //動詞（過去式）動作 
+        var swam = new Array("cooked", "danced", "drove", "ate", "fought", "jogged", "jumped", "laughed", "played", "prayed", "read", "ran", "shaved", "shouted", "sang", "skied", "slept", "studied", "surfed", "swam", "talked", "walked", "worked", "wrote");
+
+        //動詞（現在完成式）動作 
+        var swum = new Array("cooked", "danced", "driven", "eaten", "fought", "jogged", "jumped", "laughed", "played", "prayed", "read", "run", "shaved", "shouted", "sung", "skied", "slept", "studied", "surfed", "swum", "talked", "walked", "worked", "written");
+
+        //名詞 可以拿起/帶著的物品
+        var camera = new Array("camera", "bag", "belt", "book", "box", "car", "clock", "cup", "dish", "dress", "fork", "hammer", "hat", "knife", "letter", "motorcycle", "pair of pliers", "pair of scissors", "pen", "pencil", "picture", "screwdriver", "suitcase", "sweater", "table", "textbook");
+
+        //名詞 復數 可以拿起/帶著的物品的復數
+        var cameras = new Array("cameras", "boats", "books", "boots", "caps", "cars", "chairs", "clothes", "eggs", "glasses", "gloves", "guitars", "helicopters", "keys", "motorcycles", "pens", "photographs", "pictures", "shoes", "socks", "textbooks", "trucks", "umbrellas", "watches");
+
+        //副詞
+        var well = new Array("well", "badly", "carefully", "carelessly", "fast", "nicely", "quickly", "slowly", "well");
+
+        //形容詞 形容東西（物品等等
+        var pretty = new Array("pretty", "beautiful", "big", "cheap", "clean", "cold", "dirty", "dry", "fancy", "heavy", "large", "light", "little", "new", "plain", "small", "strange");
+
+        //形容詞 形容人
+        var busy = new Array("busy", "brave", "careless", "crazy", "dangerous", "famous", "fat", "friendly", "helpful", "hungry", "kind", "lazy", "lucky", "polite", "poor", "popular", "quiet", "rude", "sad", "selfish", "short", "skinny", "sleepy", "strange", "tall", "thin", "tired", "ugly");
+
+        //名詞 單數 職業 
+        var banker = new Array("banker", "barber", "bartender", "bus driver", "car mechanic", "carpenter", "cashier", "computer programmer", "dentist", "doctor", "farmer", "fisherman", "flight attendant", "garbage man", "gardener", "guard", "janitor", "journalist", "lawyer", "librarian", "manager", "musician", "news announcer", "photographer", "pilot", "plumber", "police officer", "politician", "science teacher", "scientist", "singer", "spy", "store clerk", "student", "taxi driver", "teacher", "thief");
+
+        //名詞 復數 職業
+        var bankers = new Array("bankers", "barbers", "bartenders", "bus drivers", "car mechanics", "carpenters", "cashiers", "computer programmers", "dentists", "doctors", "farmers", "fishermen", "flight attendants", "gardeners", "guards", "janitors", "journalists", "lawyers", "librarians", "managers", "musicians", "news announcers", "photographers", "pilots", "plumbers", "police officers", "politicians", "science teachers", "scientists", "singers", "store clerks", "students", "taxi drivers", "teachers", "thieves");
+
+        //形容詞 形容心情
+        var able = new Array("able", "ashamed", "delighted", "determined", "glad", "happy", "hesitant", "lucky", "obliged", "pleased", "prepared", "ready", "reluctant", "scheduled", "too angry", "willing");
+
+        //地點
+        var here = new Array("here", "among the trees", "at home", "at school", "at the bank", "at the barbershop", "at the bookstore", "at the company", "at the drugstore", "behind the post office", "below the bridge", "between the two buildings", "between the two mountains", "by the sea", "in London", "in New York", "in front of the restaurant", "in the classroom", "in the doghouse", "in the living room", "in the mountains", "in the river", "near the station", "near my home", "near our school", "near the tree", "next to the police station", "on the street", "on the top of the mountain", "over there", "under the bridge");
+
+        //時態 過去的時間
+        var yesterday = new Array("yesterday", "a few days ago", "earlier this morning", "early last month", "five weeks ago", "last December", "last January", "last Monday", "last month", "last night at eleven", "last night", "last summer", "last week", "last weekend", "last winter", "last year", "late yesterday afternoon", "many years ago", "several months ago", "the day before yesterday", "the week before last", "the year before last", "three years ago", "two days ago", "two months ago", "yesterday afternoon", "yesterday morning");
+
+        //時態 未來的時間
+        var tomorrow = new Array("tomorrow", "a few weeks from now", "before long", "early next month", "five weeks from now", "in a couple of months", "in a day or two", "in a few days", "in a month", "in a week or two", "in five years", "late tomorrow afternoon", "many years from now", "next February", "next Saturday", "next month", "next spring", "next summer", "next week", "next year", "several years from now", "soon", "the day after tomorrow", "the month after next", "three days from now", "tomorrow afternoon", "tomorrow evening", "tomorrow morning", "tomorrow night at nine");
+
+        //時態 現在當下
+        var now = new Array("now", "at present", "at the moment", "at this exact moment", "at this time", "just now", "nowadays", "right at this time", "right now", "these days", "today");
+
+        //時態 經常的頻率
+        var always = new Array("always", "frequently", "generally", "very often", "often", "usually");
+
+        //時態 每次的都...頻率
+        var everyday = new Array("every day", "about once a week", "all the time", "as often as possible", "at least twice a week", "every evening", "every month", "every night", "every other day", "every other month", "every other week", "every third day", "every thirty minutes", "every year", "four or five times a day", "three times a day", "more than four times a month", "once a week", "once or twice a year", "three times a year", "twice a day", "twice a month");
+
+        //動詞 必須
+        var must = new Array("must", "can", "could", "may", "might", "should", "will", "would");
+
+        //
+        var for2hours = new Array("for two hours", "all afternoon", "all day long", "all night", "all weekend", "for a day or two", "for a few hours", "for a few months", "for a long time", "for five years", "for four months", "for half an hour", "for many weeks", "for more than an hour", "for quite a few years", "for quite some time", "for six weeks", "for ten minutes", "for three days", "for three or four weeks", "for two or three months", "from Monday through Friday", "from six until eight");
+        var fun = new Array("fun", "a lot of fun", "bad", "boring", "cheap", "dangerous", "easy", "exciting", "expensive", "good", "hard", "impossible", "interesting", "possible", "safe");
+        var agree = new Array("agree", "demand", "desire", "expect", "know how", "like", "need", "offer", "promise", "refuse", "want", "wish");
+        var agrees = new Array("agrees", "demands", "desires", "expects", "knows how", "likes", "needs", "offers", "promises", "refuses", "wants", "wishes");
+        var agreeing = new Array("agreeing", "demanding", "expecting", "offering", "promising", "refusing", "wishing");
+        var agreed = new Array("agreed", "demanded", "desired", "expected", "liked", "needed", "offered", "promised", "refused", "wanted", "wished");
+        var ask = new Array("ask", "advise", "allow", "beg", "encourage", "expect", "forbid", "force", "get", "help", "invite", "need", "order", "permit", "persuade", "remind", "tell", "train", "urge", "want");
+        var asks = new Array("asks", "advises", "allows", "begs", "encourages", "expects", "forbids", "forces", "gets", "helps", "invites", "needs", "orders", "permits", "persuades", "reminds", "tells", "trains", "urges", "wants");
+        var asking = new Array("asking", "advising", "allowing", "begging", "encouraging", "expecting", "forcing", "helping", "ordering", "persuading", "reminding", "telling", "training", "urging");
+        var asked = new Array("asked", "advised", "allowed", "begged", "encouraged", "expected", "forced", "helped", "invited", "ordered", "persuaded", "reminded", "told", "trained", "urged", "wanted");
+        var enjoy = new Array("enjoy", "dislike", "hate", "like", "love", "miss", "practice", "regret", "remember");
+        var enjoys = new Array("enjoys", "dislikes", "hates", "likes", "loves", "misses", "practices", "regrets", "remembers");
+        var enjoying = new Array("enjoying", "missing", "practicing");
+        var enjoyed = new Array("enjoyed", "disliked", "hated", "liked", "loved", "missed", "practiced", "regretted", "remembered");
+  </script>
+</body>
+
+</html>

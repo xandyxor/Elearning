@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>NUTC</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/welcome/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/static/welcome/css/modern-business.css" rel="stylesheet">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+        integrity="sha256-PHcOkPmOshsMBC+vtJdVr5Mwb7r0LkSVJPlPrp/IMpU=" crossorigin="anonymous" />
+
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
+
+    <link href="/static/welcome/css/theme.css" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+
+    <link href="https://formden.com/static/cdn/bootstrap-iso.css" rel="stylesheet">
+
+    <link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css" />
+
+    <!-- /*全部設定字體*/  -->
+    <style>
+        html,
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: #222222;
+            color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            text-align: center;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke: rgba(255, 255, 255, 0.01) 0.1px;
+            -webkit-text-stroke-width: 0.1px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="bookshelf_wrapper">
+            <ul class="books_list">
+                <li class="book_item first"></li>
+                <li class="book_item second"></li>
+                <li class="book_item third"></li>
+                <li class="book_item fourth"></li>
+                <li class="book_item fifth"></li>
+                <li class="book_item sixth"></li>
+            </ul>
+            <div class="shelf"></div>
+        </div>
+    </div>
+    <!-- End Preloader -->
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-b navbar-trans navbar-expand-md fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll" href="#page-top">NUTC Elearning</a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+                aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
+                <ul class="navbar-nav">
+
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="dashboard">DASHBOARD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="">{{ user.username }}</a>
+                    </li>
+                    {% endif %}
+                    
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="#course">COURSE</a>
+                    </li>
+                    
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="{% url 'users:logout' %}">LOGOUT</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="#login">LOGIN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="#register">REGISTER</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- End Navigation -->
+
+
+    <!-- home -->
+    <header id="home">
+        
+        <div id="home-slider" class="carousel slide" data-ride="carousel" data-interval="7000">
+            <ol class="carousel-indicators">
+                <li data-target="#home-slider" data-slide-to="0" class="active"></li>
+                <li data-target="#home-slider" data-slide-to="1"></li>
+                <li data-target="#home-slider" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active" style="background-image: url('/static/welcome/images/slider/1.jpg')">
+                    <div class="caption-test">
+                        <h1 class="home-title animated fadeInLeftBig">臺中科技大學</h1>
+                        <p class="animated fadeInRight" style="font-size: 10px;">National Taichung University of Science
+                            and Technology.
+                        </p>
+                        <h2><span class="text-slider1"></span></h2>
+                        {% if request.user.is_authenticated %}
+                        <a class="btn btn-secondary px-4" href="/dashboard" role="button" style="margin-top: 50px;">
+                        {% else %}
+                        <a class="btn btn-secondary px-4 js-scroll" href="#login" role="button" style="margin-top: 50px;">
+						{% endif %}
+                            <span class="spinner-grow spinner-grow-sm"></span> 進入課程管理
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('/static/welcome/images/slider/2.jpg')">
+                    <div class="caption-test">
+                        <h1 class="home-title animated fadeInLeftBig">臺中科技大學</h1>
+                        <p class="animated fadeInRight" style="font-size: 10px;">National Taichung University of Science
+                            and Technology.
+                        </p>
+                        <h2><span class="text-slider2"></span></h2>
+                        {% if request.user.is_authenticated %}
+                        <a class="btn btn-secondary px-4" href="/dashboard" role="button" style="margin-top: 50px;">
+                        {% else %}
+                        <a class="btn btn-secondary px-4 js-scroll" href="#login" role="button" style="margin-top: 50px;">
+						{% endif %}
+                            <span class="spinner-grow spinner-grow-sm"></span> 進入課程管理
+                        </a>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('/static/welcome/images/slider/3.jpg')">
+                    <div class="caption-test">
+                        <h1 class="home-title animated fadeInLeftBig">臺中科技大學</h1>
+                        <p class="animated fadeInRight" style="font-size: 10px;">National Taichung University of Science
+                            and Technology.
+                        </p>
+                        <h2><span class="text-slider3"></span></h2>
+                        {% if request.user.is_authenticated %}
+                        <a class="btn btn-secondary px-4" href="/dashboard" role="button" style="margin-top: 50px;">
+                        {% else %}
+                        <a class="btn btn-secondary px-4 js-scroll" href="#login" role="button" style="margin-top: 50px;">
+						{% endif %}
+                            <span class="spinner-grow spinner-grow-sm"></span> 進入課程管理
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="overlay-itro"></div>
+            <a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+            <a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
+            <a id="tohash" href="#course"><i class="fa fa-angle-down js-scroll"></i></a>
+        </div>
+    </header>
+
+    
+
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <section id="course">
+            <hr>
+            <h1 class="my-4">COURSE</h1>
+            <hr>
+            <!-- Marketing Icons Section -->
+            <div class="row">
+                {% for course in courses %}
+                <div class="col-md-4 mb-4 wow flipInY" data-wow-duration="1000ms" data-wow-delay="500ms">
+                    <div class="card">
+                        <div class="card card-blog">
+                            <div class="card-img">
+                                <a href="#"><img src="/static/welcome/images/english-course.jpg" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category-box">
+                                    <div class="card-category">
+                                        <h6 class="category">English</h6>
+                                    </div>
+                                </div>
+                                <h3 class="card-title"><a class="card-href" href="/dashboard/courseRead_new/{{ course.id }}/">{{ course.name }}</a></h3>
+                                <p class="card-description">
+                                    {{ course.desc|linebreaks|truncatechars_html:30 }}
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="post-author">
+                                    <a href="#">
+                                        <img src="/static/welcome/images/hs.jpg" alt="" class="avatar rounded-circle">
+                                        <span class="author">chinmin</span>
+                                    </a>
+                                </div>
+                                <div class="post-date">
+                                    <a href="/dashboard/courseRead_new/{{ course.id }}/" class="btn btn-secondary"><span
+                                            class="spinner-grow spinner-grow-sm"></span>Enter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+                <div class="col-md-4 mb-4 wow flipInY" data-wow-duration="1000ms" data-wow-delay="100ms">
+
+                    <div class="card">
+                        <div class="card card-blog">
+                            <div class="card-img">
+                                <a href="#"><img src="/static/welcome/images/english-course.jpg" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category-box">
+                                    <div class="card-category">
+                                        <h6 class="category">English</h6>
+                                    </div>
+                                </div>
+                                <h3 class="card-title"><a class="card-href" href="#">LESSON 1</a></h3>
+                                <p class="card-description">
+                                    Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent
+                                    sapien massa, convallis a pellentesque nec, egestas non nisi.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="post-author">
+                                    <a href="#">
+                                        <img src="/static/welcome/images/hs.jpg" alt="" class="avatar rounded-circle">
+                                        <span class="author">chinmin</span>
+                                    </a>
+                                </div>
+                                <div class="post-date">
+                                    <a href="#" class="btn btn-secondary"><span
+                                            class="spinner-grow spinner-grow-sm"></span>Enter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4 mb-4 wow flipInY" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <div class="card">
+                        <div class="card card-blog">
+                            <div class="card-img">
+                                <a href="#"><img src="/static/welcome/images/english-course.jpg" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category-box">
+                                    <div class="card-category">
+                                        <h6 class="category">English</h6>
+                                    </div>
+                                </div>
+                                <h3 class="card-title"><a class="card-href" href="#">LESSON 1</a></h3>
+                                <p class="card-description">
+                                    Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent
+                                    sapien massa, convallis a pellentesque nec, egestas non nisi.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="post-author">
+                                    <a href="#">
+                                        <img src="/static/welcome/images/hs.jpg" alt="" class="avatar rounded-circle">
+                                        <span class="author">chinmin</span>
+                                    </a>
+                                </div>
+                                <div class="post-date">
+                                    <a href="#" class="btn btn-secondary"><span
+                                            class="spinner-grow spinner-grow-sm"></span>Enter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 wow flipInY" data-wow-duration="1000ms" data-wow-delay="500ms">
+                    <div class="card">
+                        <div class="card card-blog">
+                            <div class="card-img">
+                                <a href="#"><img src="/static/welcome/images/english-course.jpg" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category-box">
+                                    <div class="card-category">
+                                        <h6 class="category">English</h6>
+                                    </div>
+                                </div>
+                                <h3 class="card-title"><a class="card-href" href="#">LESSON 1</a></h3>
+                                <p class="card-description">
+                                    Proin eget tortor risus. Pellentesque in ipsum id orci porta dapibus. Praesent
+                                    sapien massa, convallis a pellentesque nec, egestas non nisi.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="post-author">
+                                    <a href="#">
+                                        <img src="/static/welcome/images/hs.jpg" alt="" class="avatar rounded-circle">
+                                        <span class="author">chinmin</span>
+                                    </a>
+                                </div>
+                                <div class="post-date">
+                                    <a href="#" class="btn btn-secondary"><span
+                                            class="spinner-grow spinner-grow-sm"></span>Enter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+            <!-- /.row -->
+
+        </section>
+    </div>
+    <!-- /.container -->
+
+    <hr>
+    <hr>
+    <hr>
+
+    <section id="login">
+        <div class="paralax-mf bg-image" style="background-image: url(/static/welcome/images/slider/5s.jpg)">
+            <div class="overlay-mf">
+                <div class="login-form wow bounceInLeft" data-wow-duration="1000ms" data-wow-delay="100ms">
+                    <form action="{% url 'users:login' %}" method="post">
+                        {% csrf_token %}
+                        <img src="/static/welcome/images/hs.jpg" alt="Avatar" class="avatar rounded-circle wow swing"
+                            data-wow-duration="1000ms" data-wow-delay="1000ms">
+                        <h2 class="text-center">LOGIN</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-control login-form-control" name="student_ID"
+                                placeholder="student ID" required="required">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control login-form-control" name="password"
+                                placeholder="Password" required="required">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+                        </div>
+
+                        
+                        <div class="error btns login-form-tips " id="jsLoginTips">
+                            {% for key,error in login_form.errors.items %}
+                                {{ error }}
+                            {% endfor %}
+                            {{ msg }}
+                        </div>
+
+                        {% for message in messages %}
+                            <p class="{{ message.tags }} text-danger">{{ message }}</p>
+                        {% endfor %}
+                                            
+                        <div class="clearfix">
+                            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+                            <a href="#" class="pull-right">Forgot Password?</a>
+                        </div>
+                    </form>
+                    <p class="text-center small">Don't have an account? <a href="#register">Sign up here!</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+    <hr>
+    <hr>
+
+    <section id="register">
+        <div class="paralax-mf bg-image" style="background-image: url(/static/welcome/images/slider/4s.jpg)">
+            <div class="overlay-mf">
+                <div id="register-form" class="parallax">
+                    <div class="container">
+                        <div class="heading" style="padding-bottom: 90px;">
+                            <div class=" wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                <h1><span>REGISTER <BR><p class="text-danger">目前不開放註冊唷!!</p></span></h1>
+                            </div>
+                            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="300ms">
+                                註冊加入成為NUTC
+                                Elearning的學生吧！</p>
+                        </div>
+                        <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <!-- 註冊表單 -->
+                                    <div class="bootstrap-iso" style="background-color: #ffffff00 ;color: #f7f7f7;">
+                                        <form class="form-horizontal" method="post" action="">
+                                            {% csrf_token %}
+
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2 requiredField" for="name">姓名 <span
+                                                        class="asteriskField">*</span></label>
+                                                <div class="col-xs-10">
+                                                    <input class="form-control" id="name" name="name" type="text"
+                                                        required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2 requiredField" for="department">科系
+                                                    <span class="asteriskField">*</span></label>
+                                                <div class="col-xs-10">
+                                                    <select class="select form-control" id="department"
+                                                        name="department">
+                                                        <option value="應用英語">
+                                                            應用英語
+                                                        </option>
+                                                        <option value="應用日語">
+                                                            應用日語
+                                                        </option>
+                                                        <option value="應用中文">
+                                                            應用中文
+                                                        </option>
+                                                        <option value="資訊工程">
+                                                            資訊工程
+                                                        </option>
+                                                        <option value="資訊管理">
+                                                            資訊管理
+                                                        </option>
+                                                        <option value="護理">
+                                                            護理
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2 requiredField" for="grade">年級 <span
+                                                        class="asteriskField">*</span></label>
+                                                <div class="col-xs-10">
+                                                    <select class="select form-control" id="grade" name="grade">
+                                                        <option value="一年級">
+                                                            一年級
+                                                        </option>
+                                                        <option value="二年級">
+                                                            二年級
+                                                        </option>
+                                                        <option value="三年級">
+                                                            三年級
+                                                        </option>
+                                                        <option value="四年級">
+                                                            四年級
+                                                        </option>
+                                                        <option value="五年級">
+                                                            五年級
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2 requiredField" for="student_ID">學號
+                                                    <span class="asteriskField">*</span></label>
+                                                <div class="col-xs-10">
+                                                    <input class="form-control" id="student_ID" name="student_ID"
+                                                        type="text" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2" for="birthday">生日</label>
+                                                <div class="col-xs-10">
+                                                    <div class="input-group mb-3">
+                                                        <input class="form-control" id="birthday" name="birthday"
+                                                            placeholder="YYYY-MM-DD" type="text" required="required">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-birthday-cake"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2 requiredField" for="gender">性別
+                                                    <span class="asteriskField">*</span></label>
+                                                <div class="col-xs-10">
+                                                    <select class="select form-control" id="gender" name="gender">
+                                                        <option value="男">
+                                                            男
+                                                        </option>
+                                                        <option value="女">
+                                                            女
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2" for="mobile">手機</label>
+                                                <div class="col-xs-10">
+                                                    <div class="input-group">
+                                                        <input class="form-control" id="mobile" name="mobile"
+                                                            type="text" required="required">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2 requiredField" for="email">Email
+                                                    <span class="asteriskField">*</span></label>
+                                                <div class="col-xs-10">
+                                                    <div class="input-group">
+                                                        <input class="form-control" id="email" name="email" type="text"
+                                                            required="required">
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-envelope"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <label class="control-label col-xs-2 requiredField" for="password">密碼
+                                                    <span class="asteriskField">*</span></label>
+                                                <div class="col-xs-10">
+                                                    <input class="form-control" id="password" name="password"
+                                                        type="text" required="required">
+                                                </div>
+                                            </div>
+                                            <div class="error btns text-danger" id="jsEmailTips">
+                                                {% for key,error in register_form.errors.items %}
+                                                        {{ error }}
+                                                {% endfor %}
+                                                {{ msg }}
+                                            </div>
+                                            {% for message in messages %}
+                                                <p class="{{ message.tags }} text-danger">{{ message }}</p>
+                                            {% endfor %}
+                                            {{ register_form }}
+                                            <div class="form-group wow fadeInUp" data-wow-duration="1000ms"
+                                                data-wow-delay="300ms">
+                                                <div class="col-xs-10 col-xs-offset-2">
+                                                    <button class="btn btn-lg btn-secondary btn-block" name="submit"
+                                                        type="submit">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="contact-info wow fadeInUp" data-wow-duration="1000ms"
+                                        data-wow-delay="300ms">
+                                        <p>
+                                            完成註冊手續、或開始使用本服務時，即表示已閱讀、瞭解並同意接受本服務條款之所有內容，並完全接受本服務現有與未來衍生的服務項目及內容。我們有權於任何時間修改或變更本服務條款之內容，修改後的服務條款內容將公佈網站上，我們將不會個別通知會員，建議會員隨時注意該等修改或變更。會員於任何修改或變更後繼續使用本服務時，視為會員已閱讀、瞭解並同意接受該等修改或變更。若不同意上述的服務條款修訂或更新方式，或不接受本服務條款的其他任一約定，會員應立即停止使用本服務。
+                                        </p>
+                                        <ul class="address">
+                                            <li><i class="fa fa-map-marker"></i> <span> Address:</span>
+                                                404台中市北區三民路三段129號 </li>
+                                            <li><i class="fa fa-phone"></i> <span> Phone:</span> (04) 2219 5678 </li>
+                                            <li><i class="fa fa-envelope"></i> <span> Email:</span><a
+                                                    href="mailto:admin@gms.nutc.edu.tw">
+                                                    admin@gms.nutc.edu.tw</a></li>
+                                            <li><i class="fa fa-globe"></i> <span> Website:</span> <a
+                                                    href="#">www.nutc.edu.tw</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        {% if messages or user.is_active == False and user.is_authenticated %}
+        {% for message in messages %}
+            {% if "error" in message.tags %}
+                
+        
+            <!-- Trigger the modal with a button -->
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="text-dark modal-title" id="exampleModalLabel">Hi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="text-dark modal-body">
+                        <div class="error btns login-form-tips " id="jsLoginTips">
+
+                            <p class="{{ message.tags }} text-danger">{{ message }}</p>
+ 
+                            {% if user.is_active == False and user.is_authenticated %}
+                            <p calass="text-danger">請等待老師開通帳號</p>
+                            {% endif %}
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+   
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
+
+
+    <a href="#home" class="back-to-top js-scroll"><i class="fa fa-chevron-up"></i></a>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; admin@gms.nutc.edu.tw</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+
+
+    <script src="/static/welcome/vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+
+    <script src="/static/welcome/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha256-fzFFyH01cBVPYzl16KT40wqjhgPtq6FFUB6ckN2+GGw=" crossorigin="anonymous"></script> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.countdown/2.2.0/jquery.countdown.js"
+        integrity="sha256-2HAs3lxuJSrA/bAbF2bgaV55gSuX8vVsj2pCcWYqmY4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.js"
+        integrity="sha256-399DNRyfIpWIy1ZV0KmEIIuIQ5sBHdLu9MBtVHrNtt8=" crossorigin="anonymous"></script>
+
+    <!-- <script type="text/javascript" src="js/mousescroll.js"></script> -->
+    <!-- <script type="text/javascript" src="js/smoothscroll.js"></script> -->
+    <!-- <script type="text/javascript" src="js/jquery.counterup.min.js"></script> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.9"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"
+        integrity="sha256-tw5/wId1F+4LyUF2ZJnpRoHNXJ66jrK3IGhfq4LhLjY=" crossorigin="anonymous"></script>
+
+    <script src="https://gitcdn.xyz/repo/thesmart/jquery-scrollspy/0.1.3/scrollspy.js"></script>
+
+
+
+    <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/locales/bootstrap-datepicker.zh-TW.min.js"
+        charset="UTF-8"></script>
+
+
+    <script src="/static/welcome/js/main.js"></script>
+
+    <!-- Preloader -->
+    <script>
+        /* Preloader */
+        // makes sure the whole site is loaded
+        $(window).on('load', function () {
+            $('#status').delay(100).fadeOut('slow');
+            $('#preloader').delay(500).fadeOut('slow');
+            $('body').delay(500).css({
+                'overflow': 'visible'
+                
+            });
+            $('#myModal').delay(500).modal('show');
+        });
+    </script>
+
+    <script>
+        $('#birthday').datepicker({
+            format: 'yyyy-mm-dd',
+            language: "zh-TW"
+        });
+    </script>
+
+</body>
+
+</html>

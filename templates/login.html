@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+	<head>
+		{% load static %}
+		<meta charset="utf-8">
+		<title>NUTC_Elearning</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta content="" name="keywords">
+		<meta content="" name="description"><!-- Favicons -->
+
+
+		<link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon"><!-- Bootstrap CSS File -->
+
+		<link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"><!-- Libraries CSS Files -->
+		<link href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+		<link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+		<link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+		<link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+		<link href="{% static 'lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet"><!-- Main Stylesheet File -->
+		<link href="{% static 'css/style.css' %}" rel="stylesheet"><!-- =======================================================
+			Theme Name: DevFolio
+			Theme URL: https://bootstrapmade.com/devfolio-bootstrap-portfolio-html-template/
+			Author: BootstrapMade.com
+			License: https://bootstrapmade.com/license/
+		======================================================= -->
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet"> 
+		<style type=text/css> 
+		  /*全部設定字體*/
+		  body { font-family: 'Noto Sans TC', sans-serif;}
+		</style>
+		<style type="text/css">
+			.form-signin {
+				width: 100%;
+				max-width: 330px;
+				padding: 15px;
+				margin: auto;
+			}
+			.form-signin .checkbox {
+				font-weight: 400;
+			}
+			.form-signin .form-control {
+				position: relative;
+				box-sizing: border-box;
+				height: auto;
+				padding: 10px;
+				font-size: 16px;
+			}
+			.form-signin .form-control:focus {
+				z-index: 2;
+			}
+			.form-signin input[type="email"] {
+				margin-bottom: -1px;
+				border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+			.form-signin input[type="password"] {
+				margin-bottom: 10px;
+				border-top-left-radius: 0;
+				border-top-right-radius: 0;
+			}
+		</style>
+		<!--===============================================================================================-->
+		<!-- <link rel="icon" type="image/png" href="Login_v17/images/icons/favicon.ico"/> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/vendor/bootstrap/css/bootstrap.min.css"> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/fonts/font-awesome-4.7.0/css/font-awesome.min.css"> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/vendor/animate/animate.css"> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/vendor/css-hamburgers/hamburgers.min.css"> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/vendor/animsition/css/animsition.min.css"> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/vendor/select2/select2.min.css"> -->
+		<!--===============================================================================================-->
+		<!-- <link rel="stylesheet" type="text/css" href="Login_v17/vendor/daterangepicker/daterangepicker.css"> -->
+		<!--===============================================================================================-->
+		<link href="{% static 'Login_v17/css/util.css' %}" rel="stylesheet" type="text/css">
+		<link href="{% static 'Login_v17/css/main.css' %}" rel="stylesheet" type="text/css">
+		<!--===============================================================================================-->
+		<!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
+		<link href="https://formden.com/static/cdn/bootstrap-iso.css" rel="stylesheet"><!--Font Awesome (added because you use icons in your prepend/append)-->
+		<link href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"><!-- Inline CSS based on choices in "Settings" tab -->
+
+		<style>
+		.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}
+		</style>
+	</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<!-- <form class="login100-form validate-form"> -->
+				<form class="login100-form validate-form" action="/login/" method="post">
+
+					<span class="login100-form-title p-b-34">
+						Account Login
+					</span>
+					
+					<div class="wrap-input100 rs1-wrap-input100 validate-input m-b-20" data-validate="Type user name">
+						<input id="first-name" class="input100" type="text" name="username" placeholder="student_ID /User name">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 rs2-wrap-input100 validate-input m-b-20" data-validate="Type password">
+						<input class="input100" type="password" name="password" placeholder="Password">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="error btns login-form-tips" id="jsLoginTips">
+						{% for key,error in login_form.errors.items %}
+							{{ error }}
+						{% endfor %}
+						{{ msg }}
+					</div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Sign in
+						</button>
+					</div>
+
+					<div class="w-full text-center p-t-27 p-b-239">
+						<span class="txt1">
+							Forgot
+						</span>
+
+						<a href="#" class="txt2">
+							User name / password?
+						</a>
+					</div>
+
+					<div class="w-full text-center">
+						<a href="#" class="txt3">
+							Sign Up
+						</a>
+					</div>
+					{% csrf_token %}
+
+				</form>
+				<div class="login100-more" style="background-image: url('{% static 'Login_v17/images/bg-01.jpg' %}');"></div>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<div id="dropDownSelect1"></div>
+	
+	<!--===============================================================================================-->
+	<script src="{% static 'Login_v17/vendor/jquery/jquery-3.2.1.min.js' %}">
+	</script> 
+	<!--===============================================================================================-->
+		
+	<script src="{% static 'Login_v17/vendor/animsition/js/animsition.min.js' %}">
+	</script> 
+	<!--===============================================================================================-->
+		
+	<script src="{% static 'Login_v17/vendor/bootstrap/js/popper.js' %}">
+	</script> 
+	<script src="{% static 'Login_v17/vendor/bootstrap/js/bootstrap.min.js' %}">
+	</script> 
+	<!--===============================================================================================-->
+		
+	<script src="{% static 'vendor/select2/select2.min.js' %}">
+	</script> 
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script> <!--===============================================================================================-->
+		
+	<script src="{% static 'Login_v17/vendor/daterangepicker/moment.min.js' %}">
+	</script> 
+	<script src="{% static 'Login_v17/vendor/daterangepicker/daterangepicker.js' %}">
+	</script> <!--===============================================================================================-->
+		
+	<script src="{% static 'Login_v17/vendor/countdowntime/countdowntime.js' %}">
+	</script> <!--===============================================================================================-->
+		
+	<script src="{% static 'Login_v17/js/main.js' %}">
+	</script>
+
+</body>
+</html>

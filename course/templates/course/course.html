@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+    <title>COURSE</title>
+    <meta charset="utf-8">
+    {% load static %}
+</head>
+<body>
+    <p>這是 HTML 版的 Hello world!</p>
+    {% for message in messages %}
+        <p class="{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+
+    <form class="inlineBlock" action="{% url 'course:courseSearch' %}">
+        <input type="text" name="searchTerm">
+        <input class="btn" type="submit" value="查詢">
+    </form>
+    {% if user.is_authenticated %}
+    {{ user.username }}
+    {% else %}
+    還沒登入喔
+    {% endif %}
+
+    <p class="inlineBlock"><a class="btn" href="{% url 'course:addcourse' %}">新增文章</a></p>
+
+    <!-- {% for course in courses %}
+        <h3>{{ course.name }}</h3>
+        <p>發表時間：{{ course.add_time|date:'Y-m-d H:i' }}</p>
+        <div class="courseContent">{{ course.desc|linebreaks|truncatechars_html:30 }}</div>
+
+        <hr>
+    {% endfor %} -->
+        <!-- linebreaks 斷行
+        由於文章內容可能很長，應先顯示部份內容，訪客有興趣的話再看全部內容：利用範本過濾器 truncate_html 截斷文章，只顯示部份內容
+        {{ article.content|linebreaks|truncatechars_html:30 }}
+        ✶ 僅顯示 30 個字元 (包含 3 個句點)，其餘截斷，而且保持 HTML 標籤正確配對
+        ✶ truncatechars 過濾器：不管 HTML 標籤配對
+        ✶ truncatewords_html 過濾器：不截斷英文單字
+        -->
+
+    {% for course, lessons in courses.items %}
+        <h3>{{ course.name }}</h3>
+        <h3><a class="inlineBlock" href="{% url 'course:courseRead' course.id %}">{{ course.name }}</a></h3>
+        
+        <form class="inlineBlock" method="post" action="{% url 'course:courseDelete' course.id %}">
+            {% csrf_token %}
+            <input class="btn deleteConfirm" type="submit" value="刪除">
+        </form>
+
+        <p>course 發表時間：{{ course.add_time|date:'Y-m-d H:i' }}</p>
+        <p>course 內容: </p> 
+        <div class="courseContent">{{ course.desc|linebreaks|truncatechars_html:30 }}</div>
+        {% for lesson in lessons %}
+            <div class="lessonDiv">
+            <p>lesson 名稱: </p><h4>{{ lesson.name }}</h4>
+            <span class="lessonAuthor">{{ lesson.user.username }}</span>
+            <p>lesson 內容: </p> 
+            <span class="lesson">{{ lesson.desc|linebreaks|truncatechars_html:30  }}</span>
+            <br>
+            <p>lesson 新增時間: </p>
+            <span class="lessonTime">{{ lesson.add_time|date:'m月d日 H:i' }}</span>
+            </div>
+        {% endfor %}
+        <hr>
+    {% endfor %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src={% static 'course/js/deleteConfirm.js' %}></script>
+
+</body>
+</html>

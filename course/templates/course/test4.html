@@ -1,0 +1,56 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
+</head> 
+<form id="form1" name="form1" method="get" action="">
+
+<input type="text" id = "word" name="t" /> 
+
+<button type="button" class="btn btn-primary">more example</button>
+<button id='synonyms_btn' class="btn btn-primary">儲存例句產生設定</button>      
+<div class="form-group">
+    <div class="input-group mb-3">
+        <input type="text" name = "example_tw" class="form-control" id="example_tw" placeholder="{{ words.example_tw }}" value="{{ words.example_tw }}" required>
+        <div class="input-group-append">
+        <button type="button" id ="translator" class="btn btn-primary">翻譯例句</button>
+        </div>
+    </div>
+    <div><p id="result1"></p></div>  
+</div>       
+
+<script>
+        $.ajaxSetup({
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        });
+        $(document).ready(function() {
+            $("#translator").click(function() {
+                  input_word = $("#word").val();
+                  $("#example_tw").val('產生ing.....');
+                $.get("http://127.0.0.1/course/word_example_generator/", {
+                    word: input_word
+                }, function(data) {
+                    //返回值 data 在這裡是一個列表
+                    $("#example_tw").val(data);
+
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        // 把 data 的每一項顯示在網頁上
+                        $('#result1').append(' ' + data[i]);
+                    }
+                });
+                /* 等同
+                $.ajax({
+                  url: url,
+                  data: data,
+                  success: success,
+                  dataType: dataType
+                });
+                */
+            });
+        });
+  </script>
+</html>

@@ -1,0 +1,18 @@
+django
+django-crispy-forms==1.9.1
+# django-import-export>=0.5.1
+django-reversion==3.0.7
+# django-formtools==2.1
+future
+httplib2
+six
+patterns
+Pillow
+requests
+BeautifulSoup4
+nltk
+svgwrite
+IPython
+# py-translate
+# py_translator==2.1.9
+googletrans

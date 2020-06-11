@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script> -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script> -->
+    <p id="test1">这是段落。</p>
+    <p id="test2">这是另一个段落。</p>
+    <p>Input field: <input type="text" id="test3" value="Mickey Mouse"></p>
+    <button id="btn1">设置文本</button>
+    <button id="btn2">设置 HTML</button>
+    <button id="btn3">设置值</button>
+
+    <p id="ajax_list"> click ajax_list </p>
+    <p id="result1"> result1 </p>
+    <br>
+    <p id="ajax_dict"> click ajax_dict </p>
+    <p id="result2"> result2 </p>
+    <br>
+    <p id="ajax_jquery"> click ajax_jquery </p>
+    <p id="result3"> result3 </p>
+    <br>
+    <p id="ajax_jquery_POST"> click ajax_jquery_POST </p>
+    <p id="result4"> result4 </p>
+    <br>
+    <p id="ajax_jquery_sample"> click ajax_jquery_sample </p>
+    <p id="result5"> result5 </p>
+    <script>
+        $(document).ready(function(){
+            $("#btn1").click(function(){
+                $("#test1").text("Hello world!");
+            });
+            $("#btn2").click(function(){
+                $("#test2").html("<b>Hello world!</b>");
+            });
+            $("#btn3").click(function(){
+                $("#test3").val("Dolly Duck");
+            });
+        });
+    </script>
+    <!-- <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <script>
+        $.ajaxSetup({
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
+        });
+        $(document).ready(function() {
+            $("#ajax_list").click(function() {
+                $.get("http://192.168.1.25:8000/course/ajax_list/", {
+                    name: "John",
+                    time: "2pm"
+                }, function(data) {
+                    //返回值 data 在這裡是一個列表
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        // 把 data 的每一項顯示在網頁上
+                        $('#result1').append(' ' + data[i]);
+                    }
+                });
+                /* 等同
+                $.ajax({
+                  url: url,
+                  data: data,
+                  success: success,
+                  dataType: dataType
+                });
+                */
+            });
+            $("#ajax_dict").click(function() {
+                $.get("http://192.168.1.25:8000/course/ajax_dict/", function(data) {
+                    //返回值 data 在這裡是一個列表
+                    for (var i in data) {
+                        // 把 data 的每一項顯示在網頁上
+                        $('#result2').append("<br>" + i + " : " + data[i] + "<br>");
+                    }
+                });
+            });
+            $("#ajax_jquery").click(function() {
+                $.ajax({
+                    url: "http://192.168.1.25:8000/course/ajax_jquery/",
+                    data: {
+                        "a": "123",
+                        "b": [1, 2, 3]
+                    },
+                    success: function(data) {
+                        //返回值 data 在這裡是一個列表
+                        for (var i in data) {
+                            // 把 data 的每一項顯示在網頁上
+                            $('#result3').append("<br>" + i + " : " + data[i] + "<br>");
+                        }
+                    },
+                    type: "get",
+                    dataType: "json"
+                });
+            });
+            $("#ajax_jquery_POST").click(function() {
+                $.ajax({
+                    url: "http://192.168.1.25:8000/course/ajax_jquery_POST/",
+                    data: {
+                        "a": "123",
+                        "b": [1, 2, 3]
+                    },
+                    success: function(data) {
+                        //返回值 data 在這裡是一個列表
+                        for (var i in data) {
+                            // 把 data 的每一項顯示在網頁上
+                            $('#result4').append("<br>" + i + " : " + data[i] + "<br>");
+                        }
+                    },
+                    type: "POST",
+                    dataType: "json"
+                });
+            });
+            $("#ajax_jquery_sample").click(function() {
+                $.ajax({
+                    url: "http://192.168.1.25:8000/course/ajax_jquery_sample/",
+                    data: {
+                        "a": "123",
+                        "b": [1, 2, 3]
+                    },
+                    success: function(data) {
+                        //返回值 data 在這裡是一個列表
+                        for (var i in data) {
+                            // 把 data 的每一項顯示在網頁上
+                            $('#result5').append("<br>" + i + " : " + data[i] + "<br>");
+                        }
+                    },
+                    // 錯誤時執行的函式
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(thrownError);
+                    },
+                    //請求完成時執行的函式(不論結果是success或error)。
+                    complete: function(XMLHttpRequest, textStatus) {
+                        // the options for this ajax request
+                        alert("complete : " + textStatus);
+                    },
+                    //發送請求之前可在此修改XMLHttpRequest物件，如添加header等，你可以在此函式中return flase取消Ajax request。
+                    beforeSend: function(XMLHttpRequest) {
+                        // the options for this ajax request
+                        alert("beforeSend");
+                    },
+                    type: "POST", //預設為 GET
+                    dataType: "json" //無指定自動選擇
+                });
+                $.ajax({
+                    url: "http://192.168.1.25:8000/course/ajax_error/",
+                    error: function(xhr, ajaxOptions, thrownError) {
+                        alert("status : " + xhr.status);
+                        alert("thrownError : " + thrownError);
+                    },
+                    //請求完成時執行的函式(不論結果是success或error)。
+                    complete: function(XMLHttpRequest, textStatus) {
+                        // the options for this ajax request
+                        alert("complete : " + textStatus);
+                    },
+                    //發送請求之前可在此修改XMLHttpRequest物件，如添加header等，你可以在此函式中return flase取消Ajax request。
+                    beforeSend: function(XMLHttpRequest) {
+                        // the options for this ajax request
+                        alert("beforeSend");
+                    }
+                });
+            });
+        });
+    </script>
+
+<script src="/static/sbadmin2/vendor/jquery/jquery.min.js"></script>
+<script src="/static/sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/static/sbadmin2/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+</body>
+
+</html>
