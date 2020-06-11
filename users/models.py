@@ -10,6 +10,23 @@ from django.utils.safestring import mark_safe
 import os
 from uuid import uuid4
 
+from django.utils.deconstruct import deconstructible
+
+@deconstructible
+class PathAndRename(object):
+
+    def __init__(self, sub_path):
+        self.path = sub_path
+
+    def __call__(self, instance, filename):
+        ext = filename.split('.')[-1]
+        # set filename as random string
+        filename = '{}.{}'.format(str(instance.pk) + str(uuid4().hex), ext)
+        # return the whole path to the file
+        return os.path.join(self.path, filename.lower())
+
+path_and_rename = PathAndRename("user_img")
+
 class UserProfile(AbstractUser):
     # 1. 姓名
     # 2. 科系
@@ -40,22 +57,22 @@ class UserProfile(AbstractUser):
         ('四年級','四年級'),
         ('五年級','五年級'),
     )
-
-
-    def path_and_rename(path):
-        def wrapper(instance, filename):
-            ext = filename.split('.')[-1]
-            # get filename
-            filename = '{}.{}'.format(str(instance.pk) + str(uuid4().hex), ext)
-            # filename = '{}.{}'.format(uuid4().hex, ext)
-            # if instance.pk:
-            #     filename = '{}.{}'.format(instance.pk, ext)
-            # else:
-            #     # set filename as random string
-            #     filename = '{}.{}'.format(str(instance.pk) + str(uuid4().hex), ext)
-            # # return the whole path to the file
-            return os.path.join(path, filename.lower())
-        return wrapper
+    
+    
+    # def path_and_rename(path):
+    #     def wrapper(instance, filename):
+    #         ext = filename.split('.')[-1]
+    #         # get filename
+    #         filename = '{}.{}'.format(str(instance.pk) + str(uuid4().hex), ext)
+    #         # filename = '{}.{}'.format(uuid4().hex, ext)
+    #         # if instance.pk:
+    #         #     filename = '{}.{}'.format(instance.pk, ext)
+    #         # else:
+    #         #     # set filename as random string
+    #         #     filename = '{}.{}'.format(str(instance.pk) + str(uuid4().hex), ext)
+    #         # # return the whole path to the file
+    #         return os.path.join(path, filename.lower())
+    #     return wrapper
 
     department = models.CharField('科系',max_length=10,choices=department_choices,default=1,null=True)
     grade = models.CharField('年級',max_length=10,choices=grade_choices,default=1,null=True)
@@ -64,13 +81,14 @@ class UserProfile(AbstractUser):
     gender = models.CharField('性別',max_length=10,choices=gender_choices,default='男')
     mobile = models.CharField('手機號碼',max_length=11,null=True,blank=True)
     email = models.EmailField('信箱',max_length=50)
-    image = models.ImageField(upload_to=path_and_rename('user_img'),default='/img/hs.jpg',max_length=100,blank=True,null=True)
+    image = models.ImageField(upload_to=path_and_rename,default='/img/hs.jpg',max_length=100,blank=True,null=True)
     #image = models.ImageField(u'图片', upload_to='photos/%Y/%m/%d')
+    
 
-    def image_tag(self):
-        return mark_safe('<img src="/upload%s" width="150" height="150" />' % (self.image))
+    # def image_tag(self):
+    #     return mark_safe('<img src="/upload%s" width="150" height="150" />' % (self.image))
 
-    image_tag.short_description = 'Image'
+    # image_tag.short_description = 'Image'
 
     class Meta:
         verbose_name = '學生名單'
