@@ -4,7 +4,7 @@
 
 ## 開發環境
 
-    django>=2
+    django>=3
     django-crispy-forms>=1.6.0
     django-import-export>=0.5.1
     django-reversion>=2.0.0
