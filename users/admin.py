@@ -5,8 +5,11 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-
+from django.contrib.auth import get_permission_codename
+from django.utils.translation import ngettext
+from django.contrib import messages
 # admin.site.register(UserProfile)
+
 
 
 class UserCreationForm(forms.ModelForm):
@@ -60,15 +63,36 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserAdmin(BaseUserAdmin):
+    
+    def activate_account(self, request, queryset):
+        updated = queryset.update(is_active='1')
+        self.message_user(request, ngettext(
+            '%d 帳號已啟用',
+            '%d 帳號已啟用.',
+            updated,
+        ) % updated, messages.SUCCESS)
+    activate_account.short_description = "啟用帳號"
+
+    def close_account(self, request, queryset):
+        updated = queryset.update(is_active='0')
+        self.message_user(request, ngettext(
+            '%d 帳號已關閉',
+            '%d 帳號已關閉.',
+            updated,
+        ) % updated, messages.SUCCESS)
+    close_account.short_description = "關閉帳號"
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
+
+
     # The fields to be used in displaying the User model.
     # These override the definitions on the base UserAdmin
     # that reference specific fields on auth.User.
     list_display = ('student_ID','username','department', 'grade', 'gender','email','is_active')
-    # list_filter = ('is_staff')
+    # list_filter = ('is_staff',)
     readonly_fields = ("email",)
+    actions = [activate_account,close_account]
     fieldsets = (
         (None, {'fields': ('image','student_ID','username','department', 'grade', 'gender','email','mobile',)}),
         ('Change Password', {'fields': ('password',)}),
@@ -85,6 +109,10 @@ class UserAdmin(BaseUserAdmin):
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
+
+
+
+
 
 # Now register the new UserAdmin...
 #admin.site.register(MyUser, UserAdmin)

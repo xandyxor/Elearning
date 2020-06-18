@@ -417,7 +417,7 @@
 
                                     <!-- 註冊表單 -->
                                     <div class="bootstrap-iso" style="background-color: #ffffff00 ;color: #f7f7f7;">
-                                        <form class="form-horizontal" method="post" action="">
+                                        <form class="form-horizontal" method="post"  action="{% url 'register' %}">
                                             {% csrf_token %}
 
                                             <div class="form-group wow fadeInUp" data-wow-duration="1000ms"

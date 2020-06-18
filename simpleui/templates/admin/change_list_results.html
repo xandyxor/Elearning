@@ -7,6 +7,28 @@
 {#{% if results %}#}
 <div class="results">
     <table id="result_list">
+
+        <!-- <div>
+            <form action="immortal/" method="POST">
+                {% csrf_token %}
+         
+                    <button type="button" class="el-button el-button--primary" url="/admin/users/userprofile/add/">
+                        <i class="el-icon-plus"></i>
+                        <span>Make Immortal</span>
+                    </button>
+            </form>
+            <form action="mortal/" method="POST">
+                {% csrf_token %}
+                   
+                    <button type="button" class="el-button el-button--primary" url="/admin/users/userprofile/add/">
+                        <i class="el-icon-plus"></i>
+                        <span>Make Mortal</span>
+                    </button>
+            </form>
+        </div>
+        <br /> -->
+
+        
         <thead>
         <tr>
             {% for header in result_headers %}

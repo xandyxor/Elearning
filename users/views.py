@@ -129,6 +129,7 @@ class RegisterView(View):
 
             # 如果學號已存在，則提示錯誤訊息
             if UserProfile.objects.filter(student_ID = student_ID):
+                print("學號已存在，提示錯誤訊息")
                 return render(request, 'course/index.html', {'register_form':register_form,'msg': '學號已存在'})
                 return redirect('/#register', {'register_form':register_form,'msg': '學號已存在'})
                 
@@ -149,7 +150,7 @@ class RegisterView(View):
             # 對保存到資料庫的密碼加密
             user_profile.password = make_password(pass_word)
             user_profile.save()
-            
+            print("user_profile.save()")
             # return render(request,'course/index.html')
             return redirect('/#register')
 
