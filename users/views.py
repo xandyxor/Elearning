@@ -205,10 +205,10 @@ def userlogin(request):
 
 
     # POST
-    student_ID = request.POST.get('student_ID')
+    email = request.POST.get('email')
     password = request.POST.get('password')
-    print(student_ID,password)
-    if not student_ID or not password:    # Server-side validation
+    print(email,password)
+    if not email or not password:    # Server-side validation
         messages.error(request, '請填資料')
         print('請填資料')
         # return render(request,template)
@@ -217,7 +217,7 @@ def userlogin(request):
 
         
 
-    user = authenticate(student_ID=student_ID, password=password)
+    user = authenticate(email=email, password=password)
     if not user:    # authentication fails
         messages.error(request, '登入失敗')
         print('登入失敗')

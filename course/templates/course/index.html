@@ -86,7 +86,11 @@
             </button>
             <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
                 <ul class="navbar-nav">
-
+                    {% if request.user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="ㄎ">ADMIN</a>
+                    </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link js-scroll" href="dashboard">DASHBOARD</a>
@@ -360,8 +364,8 @@
                             data-wow-duration="1000ms" data-wow-delay="1000ms">
                         <h2 class="text-center">LOGIN</h2>
                         <div class="form-group">
-                            <input type="text" class="form-control login-form-control" name="student_ID"
-                                placeholder="student ID" required="required">
+                            <input type="text" class="form-control login-form-control" name="email"
+                                placeholder="Email" required="required">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control login-form-control" name="password"
@@ -551,7 +555,7 @@
                                                     <span class="asteriskField">*</span></label>
                                                 <div class="col-xs-10">
                                                     <input class="form-control" id="password" name="password"
-                                                        type="text" required="required">
+                                                        type="password" required="required">
                                                 </div>
                                             </div>
                                             <div class="error btns text-danger" id="jsEmailTips">

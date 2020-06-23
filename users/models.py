@@ -82,7 +82,6 @@ class UserProfile(AbstractUser):
     mobile = models.CharField('手機號碼',max_length=11,null=True,blank=True)
     email = models.EmailField('信箱',max_length=50)
     image = models.ImageField(upload_to=path_and_rename,default='/img/hs.jpg',max_length=100,blank=True,null=True)
-    #image = models.ImageField(u'图片', upload_to='photos/%Y/%m/%d')
     
 
     # def image_tag(self):
